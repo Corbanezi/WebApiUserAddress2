@@ -8,10 +8,10 @@ using System.Linq;
 
 namespace Repository
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class UserRepository : IUserRepository
     {
         private IDbConnection _connection;
-        public UsuarioRepository(IDbConnection connection)
+        public UserRepository(IDbConnection connection)
         {
             _connection = connection;
         }

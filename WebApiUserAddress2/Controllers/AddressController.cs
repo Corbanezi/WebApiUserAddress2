@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Dapper;
 using Models;
+using Models.Querys;
+using Repository.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace WebApiUsuarioEndereco.Controllers
@@ -9,6 +11,11 @@ namespace WebApiUsuarioEndereco.Controllers
     [ApiController]
     public class AddressController : ControllerBase
     {
+        private IAddressRepository _addressRepository;
+        public AddressController( IAddressRepository addressRepository)
+        {
+            _addressRepository = addressRepository;
+        }
 
         [HttpPost]
         public void Post([FromBody] Address address)
@@ -18,15 +25,40 @@ namespace WebApiUsuarioEndereco.Controllers
 
         [HttpPost]
         [Route("list")]
-        public IEnumerable<Address> List()
+        public ActionResult <IEnumerable<Address>> List([FromBody] AddressQuery addressQuery)
         {
-            return null;
+            try
+            {
+                var list = _addressRepository.List(new Dictionary<string, object>()
+                {
+                    {"@Descricao", addressQuery.Descricao},
+                    {"@Numero", addressQuery.Numero},
+                    {"@Cep", addressQuery.Cep},
+
+                }) ;
+                    return Ok(list);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet("{id}")]
-        public string GetById(int id)
+        public ActionResult<IEnumerable<Address>> Get(int id)
         {
-            return "value";
+            try
+            {
+                var address = _addressRepository.Get(new Dictionary<string, object>()
+                {
+                    { "@Id", id }
+                });
+                return Ok(address);
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         [HttpPut]

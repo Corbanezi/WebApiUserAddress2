@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Repository.Interfaces
 {
-    public interface IEnderecoRepository
+    public interface IAddressRepository
     {
         public IEnumerable<Address> List(IDictionary<string, object> Params);
         public void Put(Address address);

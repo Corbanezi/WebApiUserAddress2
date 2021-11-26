@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace Repository
 {
-    public class EnderecoRepository : IEnderecoRepository
+    public class AddressRepository : IAddressRepository
     {
         private IDbConnection _connection;
 
-        public EnderecoRepository(IDbConnection connection)
+        public AddressRepository(IDbConnection connection)
         {
             _connection = connection;
         }

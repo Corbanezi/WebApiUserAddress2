@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Repository.Interfaces
 {
-    public interface IUsuarioRepository
+    public interface IUserRepository
     {
         public IEnumerable<User> List(IDictionary<string, object> Params);
         public void Put(User user);
